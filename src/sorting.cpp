@@ -1,48 +1,7 @@
 #include "sorting.hpp"
+#include "utils.hpp"
 
-#include <chrono>
-#include <cstdlib>
-#include <future>
-#include <iostream>
-#include <string>
-
-int *create_average_case_array_function(int array[], const int array_length)
-{
-    for (int i = 0; i < array_length; i++)
-        array[i] = std::rand();
-
-    return array;
-}
-
-int *create_best_case_array_function(int array[], const int array_length)
-{
-    for (int i = 0; i < array_length; i++)
-        array[i] = i;
-
-    return array;
-}
-
-int *create_worst_case_array_function(int array[], const int array_length)
-{
-    for (int i = 0; i < array_length; i++)
-        array[i] = array_length - i;
-
-    return array;
-}
-
-std::string get_sort_function_name(void sort_function(int array[],
-                                                      const int array_length))
-{
-    if (&(*sort_function) == &(*heap_sort)) return "Heap Sort";
-
-    if (&(*sort_function) == &(*insertion_sort)) return "Insertion Sort";
-
-    if (&(*sort_function) == &(*merge_sort)) return "Merge Sort";
-
-    if (&(*sort_function) == &(*quick_sort)) return "Quick Sort";
-
-    return "";
-}
+#include <utility> // std::swap
 
 // https://en.wikipedia.org/wiki/Heapsort
 // Worst-case performance: O(n*log(n))
@@ -119,11 +78,9 @@ void merge(int array[], const int left, const int mid, const int right)
     int *right_array = new int[sub_array_two];
 
     // copy data to temp arrays
-    for (int i = 0; i < sub_array_one; i++)
-        left_array[i] = array[left + i];
+    for (int i = 0; i < sub_array_one; i++) left_array[i] = array[left + i];
 
-    for (int i = 0; i < sub_array_two; i++)
-        right_array[i] = array[mid + 1 + i];
+    for (int i = 0; i < sub_array_two; i++) right_array[i] = array[mid + 1 + i];
 
     int index_of_subarray_one = 0;
     int index_of_subarray_two = 0;
@@ -215,50 +172,6 @@ int partition(int array[], const int low, const int high)
     return i + 1;
 }
 
-void print_array(int array[], const int length)
-{
-    std::cout << "[ ";
-
-    for (int i = 0; i < length; i++)
-    {
-        std::cout << array[i];
-        if (i < (length - 1)) std::cout << ", ";
-    }
-
-    std::cout << " ]\n";
-}
-
-void print_sort_times(const std::string &sort_function_name,
-                      sort_times_t *sort_times)
-{
-    try
-    {
-        sort_times->average_case_seconds_future.wait();
-        sort_times->best_case_seconds_future.wait();
-        sort_times->worst_case_seconds_future.wait();
-    }
-    catch (std::future_error &error)
-    {
-        std::cout << "Error:" << error.code() << "\n\t" << error.what()
-                  << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-
-    std::cout << sort_function_name << "\n"
-              << "\tAverage Case:\t"
-              << sort_times->average_case_seconds_future.get() << " seconds\n"
-              << "\tBest Case:\t" << sort_times->best_case_seconds_future.get()
-              << " seconds\n"
-              << "\tWorst Case:\t"
-              << sort_times->worst_case_seconds_future.get() << " seconds\n\n";
-}
-
-void print_title(const int array_length)
-{
-    std::cout << "Sorting Algorithm Benchmarks (array length: " << array_length
-              << ")\n\n";
-}
-
 // https://en.wikipedia.org/wiki/Quicksort
 // Worst-case performance:      O(n^2)
 // Best-case performance:       O(n*log(n)) (simple partition),
@@ -279,53 +192,4 @@ void quick_sort_r(int array[], const int low, const int high)
         quick_sort_r(array, low, partition_index - 1);
         quick_sort_r(array, partition_index + 1, high);
     }
-}
-
-double run_sort_function(void sort_function(int array[],
-                                            const int array_length),
-                         int *create_array_function(int array[],
-                                                    const int array_length),
-                         const int array_length)
-{
-    int *array = (int *)std::malloc(sizeof(int) * array_length);
-    if (!array)
-    {
-        std::cout
-            << "Error: system was unable to allocate memory while running "
-            << get_sort_function_name(sort_function) << ". Exiting."
-            << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-    create_array_function(array, array_length);
-    const auto start = std::chrono::high_resolution_clock::now();
-    sort_function(array, array_length);
-    std::free(array);
-    const auto end = std::chrono::high_resolution_clock::now();
-    const std::chrono::duration<double> diff = end - start;
-
-    return diff.count();
-}
-
-sort_times_t run_sort_function_test_cases(
-    void sort_function(int array[], const int array_length),
-    const int array_length)
-{
-    sort_times_t sort_times;
-
-    // average case
-    sort_times.average_case_seconds_future =
-        std::async(std::launch::async, run_sort_function, sort_function,
-                   create_average_case_array_function, array_length);
-
-    // best case
-    sort_times.best_case_seconds_future =
-        std::async(std::launch::async, run_sort_function, sort_function,
-                   create_best_case_array_function, array_length);
-
-    // worst case
-    sort_times.worst_case_seconds_future =
-        std::async(std::launch::async, run_sort_function, sort_function,
-                   create_worst_case_array_function, array_length);
-
-    return sort_times;
 }
