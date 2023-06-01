@@ -3,7 +3,7 @@
 ## requirements
 - cmake
 - make
-- g++
+- g++ or clang++
 
 ## build
 - run `./build.sh`
@@ -24,22 +24,22 @@
 ```
 Sorting Algorithm Benchmarks (array length: 66666)
 
-Heap Sort -> O(n*log(n))
+Heap Sort
         Average Case:   0.0206543 seconds
         Best Case:      0.0278411 seconds
         Worst Case:     0.0230177 seconds
 
-Insertion Sort -> O(n^2)
+Insertion Sort
         Average Case:   2.45533 seconds
         Best Case:      0.000396033 seconds
         Worst Case:     4.92439 seconds
 
-Merge Sort -> O(n*log(n))
+Merge Sort
         Average Case:   0.0175542 seconds
         Best Case:      0.0122614 seconds
         Worst Case:     0.0125662 seconds
 
-Quick Sort -> O(n^2)
+Quick Sort
         Average Case:   0.0159075 seconds
         Best Case:      18.7339 seconds
         Worst Case:     11.6302 seconds
