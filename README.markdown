@@ -24,25 +24,25 @@
 ```
 Sorting Algorithm Benchmarks (array length: 66666)
 
-Merge Sort -> O(n*log(n))
-        Average Case:   0.0125277 seconds
-        Best Case:      0.00679441 seconds
-        Worst Case:     0.00690654 seconds
-
 Heap Sort -> O(n*log(n))
-        Average Case:   0.021811 seconds
-        Best Case:      0.0172573 seconds
-        Worst Case:     0.0169674 seconds
+        Average Case:   0.0206543 seconds
+        Best Case:      0.0278411 seconds
+        Worst Case:     0.0230177 seconds
 
 Insertion Sort -> O(n^2)
-        Average Case:   2.43668 seconds
-        Best Case:      0.000192168 seconds
-        Worst Case:     4.84465 seconds
+        Average Case:   2.45533 seconds
+        Best Case:      0.000396033 seconds
+        Worst Case:     4.92439 seconds
+
+Merge Sort -> O(n*log(n))
+        Average Case:   0.0175542 seconds
+        Best Case:      0.0122614 seconds
+        Worst Case:     0.0125662 seconds
 
 Quick Sort -> O(n^2)
-        Average Case:   0.0130386 seconds
-        Best Case:      18.6444 seconds
-        Worst Case:     11.8423 seconds
+        Average Case:   0.0159075 seconds
+        Best Case:      18.7339 seconds
+        Worst Case:     11.6302 seconds
 
-Benchmarks ran asynchronously in 30.5285 seconds.
+Benchmarks ran asynchronously in 18.7358 seconds.
 ```
