@@ -1,6 +1,6 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
-
+#include <chrono>
 #include <future>
 
 struct sort_times_t
@@ -8,6 +8,21 @@ struct sort_times_t
     std::future<double> average_case_seconds_future;
     std::future<double> best_case_seconds_future;
     std::future<double> worst_case_seconds_future;
+};
+
+class Timer
+{
+  public:
+    Timer();
+    double get_diff();
+    bool is_running();
+    void start();
+    double stop();
+
+  private:
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_start, m_end;
+    std::chrono::duration<double> m_diff;
+    bool m_running;
 };
 
 const char *get_sort_function_name(void sort_function(int array[],

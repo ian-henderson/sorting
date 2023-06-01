@@ -5,6 +5,41 @@
 #include <future>
 #include <iostream>
 
+Timer::Timer() : m_running{false}
+{
+}
+
+void Timer::start()
+{
+    m_running = true;
+    m_start = std::chrono::high_resolution_clock::now();
+}
+
+double Timer::stop()
+{
+    m_running = false;
+    m_end = std::chrono::high_resolution_clock::now();
+    m_diff = m_end - m_start;
+    return m_diff.count();
+}
+
+double Timer::get_diff()
+{
+    if (m_running)
+    {
+        std::chrono::time_point<std::chrono::high_resolution_clock> now =
+            std::chrono::high_resolution_clock::now();
+        return (now - m_start).count();
+    }
+
+    return m_diff.count();
+}
+
+bool Timer::is_running()
+{
+    return m_running;
+}
+
 const char *get_sort_function_name(void sort_function(int array[],
                                                       const int array_length))
 {
@@ -93,13 +128,13 @@ double run_sort_function(void sort_function(int array[],
         std::exit(EXIT_FAILURE);
     }
     populate_array(array, array_length);
-    const auto start = std::chrono::high_resolution_clock::now();
+    Timer timer;
+    timer.start();
     sort_function(array, array_length);
+    timer.stop();
     std::free(array);
-    const auto end = std::chrono::high_resolution_clock::now();
-    const std::chrono::duration<double> diff = end - start;
 
-    return diff.count();
+    return timer.get_diff();
 }
 
 sort_times_t run_sort_function_test_cases(

@@ -1,7 +1,5 @@
 #include "sorting.hpp"
 #include "utils.hpp"
-
-#include <chrono>
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -10,9 +8,10 @@ int main(int argc, char *argv[])
     // Windows has a very small stack.
     const int array_length = argc > 1 ? std::atoi(argv[1]) : 16000;
 
-    const auto start = std::chrono::high_resolution_clock::now();
-
     print_title(array_length);
+
+    Timer timer;
+    timer.start();
 
     sort_times_t heap_sort_times =
         run_sort_function_test_cases(heap_sort, array_length);
@@ -34,9 +33,8 @@ int main(int argc, char *argv[])
 
     print_sort_times("Quick Sort -> O(n^2)", &quick_sort_times);
 
-    const auto end = std::chrono::high_resolution_clock::now();
-    const std::chrono::duration<double> diff = end - start;
+    timer.stop();
 
-    std::cout << "Benchmarks ran asynchronously in " << diff.count()
+    std::cout << "Benchmarks ran asynchronously in " << timer.get_diff()
               << " seconds.\n";
 }

@@ -1,6 +1,5 @@
 #include "sorting.hpp"
 #include "utils.hpp"
-
 #include <utility> // std::swap
 
 // https://en.wikipedia.org/wiki/Heapsort
