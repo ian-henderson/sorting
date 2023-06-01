@@ -1,6 +1,5 @@
 #include "sorting.hpp"
-#include "utils.hpp"
-#include <utility> // std::swap
+#include <utility> // swap
 
 // https://en.wikipedia.org/wiki/Heapsort
 // Worst-case performance: O(n*log(n))

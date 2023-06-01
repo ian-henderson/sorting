@@ -1,9 +1,9 @@
 #include "utils.hpp"
 #include "sorting.hpp"
-#include <chrono>
-#include <cstdlib>
-#include <future>
-#include <iostream>
+#include <chrono>   // high_resolution_clock
+#include <cstdlib>  // exit, free, malloc
+#include <future>   // async, launch::async
+#include <iostream> // cout, endl
 
 double Timer::get_diff()
 {
@@ -21,19 +21,35 @@ void Timer::stop()
     m_diff = m_end - m_start;
 }
 
-void populate_average_case_array(int array[], const int array_length)
+TestArrays *create_test_arrays(const int array_length)
 {
-    for (int i = 0; i < array_length; i++) array[i] = std::rand();
+    TestArrays *test_arrays = (TestArrays *)std::malloc(sizeof(TestArrays));
+
+    test_arrays->average_case_array =
+        (int *)std::malloc(sizeof(int) * array_length);
+
+    test_arrays->best_case_array =
+        (int *)std::malloc(sizeof(int) * array_length);
+
+    test_arrays->worst_case_array =
+        (int *)std::malloc(sizeof(int) * array_length);
+
+    for (int i = 0; i < array_length; i++)
+    {
+        test_arrays->average_case_array[i] = std::rand();
+        test_arrays->best_case_array[i] = i;
+        test_arrays->worst_case_array[i] = array_length - i;
+    }
+
+    return test_arrays;
 }
 
-void populate_best_case_array(int array[], const int array_length)
+void delete_test_arrays(TestArrays *test_arrays)
 {
-    for (int i = 0; i < array_length; i++) array[i] = i;
-}
-
-void populate_worst_case_array(int array[], const int array_length)
-{
-    for (int i = 0; i < array_length; i++) array[i] = array_length - i;
+    std::free(test_arrays->average_case_array);
+    std::free(test_arrays->best_case_array);
+    std::free(test_arrays->worst_case_array);
+    std::free(test_arrays);
 }
 
 void print_array(int array[], const int length)
@@ -69,24 +85,22 @@ void print_title(const int array_length)
 double run_sort_function(const char *sort_function_name,
                          void sort_function(int array[],
                                             const int array_length),
-                         void populate_array(int array[],
-                                             const int array_length),
-                         const int array_length)
+                         int test_array[], const int array_length)
 {
-    int *array = (int *)std::malloc(sizeof(int) * array_length);
-    if (!array)
+    int *test_array_copy = (int *)std::malloc(sizeof(int) * array_length);
+    if (!test_array_copy)
     {
         std::cout
             << "Error: system was unable to allocate memory while running "
             << sort_function_name << ". Exiting." << std::endl;
         std::exit(EXIT_FAILURE);
     }
-    populate_array(array, array_length);
+    for (int i = 0; i < array_length; i++) test_array_copy[i] = test_array[i];
     Timer timer;
     timer.start();
-    sort_function(array, array_length);
+    sort_function(test_array_copy, array_length);
     timer.stop();
-    std::free(array);
+    std::free(test_array_copy);
 
     return timer.get_diff();
 }
@@ -94,16 +108,17 @@ double run_sort_function(const char *sort_function_name,
 SortTimes run_sort_function_test_cases(
     const char *sort_function_name,
     void sort_function(int array[], const int array_length),
-    const int array_length)
+    TestArrays *test_arrays, const int array_length)
 {
     SortTimes sort_times{
         sort_function_name,
         std::async(std::launch::async, run_sort_function, sort_function_name,
-                   sort_function, populate_average_case_array, array_length),
+                   sort_function, test_arrays->average_case_array,
+                   array_length),
         std::async(std::launch::async, run_sort_function, sort_function_name,
-                   sort_function, populate_best_case_array, array_length),
+                   sort_function, test_arrays->best_case_array, array_length),
         std::async(std::launch::async, run_sort_function, sort_function_name,
-                   sort_function, populate_worst_case_array, array_length)};
+                   sort_function, test_arrays->worst_case_array, array_length)};
 
     return sort_times;
 }
