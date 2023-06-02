@@ -40,14 +40,11 @@ void print_sort_times(SortTimes &sort_times);
 
 void print_title(const int array_length);
 
-double run_sort_function(const char *sort_function_name,
-                         void sort_function(int array[],
-                                            const int array_length),
-                         int *test_array, const int array_length);
+double run_sort_function(const char *sort_function_name, void sort_function(int array[], const int array_length),
+                         int test_array[], const int array_length);
 
-SortTimes run_sort_function_test_cases(
-    const char *sort_function_name,
-    void sort_function(int array[], const int array_length),
-    TestArrays *test_arrays, const int array_length);
+SortTimes run_sort_function_test_cases(const char *sort_function_name,
+                                       void sort_function(int array[], const int array_length), TestArrays *test_arrays,
+                                       const int array_length);
 
 #endif
