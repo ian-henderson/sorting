@@ -14,6 +14,7 @@
     - you can optionally pass in an int that determines how many elements the test arrays will contain, e.g. `./build/sorting-algorithm-benchmarks 500`
 
 ## sorting algorithms
+- Bubble Sort
 - Heap Sort<sup>*</sup>
 - Insertion Sort
 - Merge Sort<sup>*</sup>
@@ -25,32 +26,37 @@
 ## sample output:
 
 ```
-Sorting Algorithm Benchmarks (array length: 100000)
+Sorting Algorithm Benchmarks (array length: 10000)
+
+Bubble Sort
+        Average Case:   0.273266 seconds
+        Best Case:      2.0377e-05 seconds
+        Worst Case:     0.232845 seconds
 
 Heap Sort
-        Average Case:   0.0539358 seconds
-        Best Case:      0.00041238 seconds
-        Worst Case:     0.0439888 seconds
+        Average Case:   0.00267411 seconds
+        Best Case:      3.093e-05 seconds
+        Worst Case:     0.00211626 seconds
 
 Insertion Sort
-        Average Case:   6.64866 seconds
-        Best Case:      0.000598618 seconds
-        Worst Case:     13.3408 seconds
+        Average Case:   0.0581824 seconds
+        Best Case:      5.0297e-05 seconds
+        Worst Case:     0.111723 seconds
 
 Merge Sort
-        Average Case:   0.0419816 seconds
-        Best Case:      0.000513726 seconds
-        Worst Case:     0.0282265 seconds
+        Average Case:   0.00510136 seconds
+        Best Case:      3.8686e-05 seconds
+        Worst Case:     0.00413113 seconds
 
 Quick Sort
-        Average Case:   0.0364708 seconds
-        Best Case:      0.000489395 seconds
-        Worst Case:     29.1918 seconds
+        Average Case:   0.00155681 seconds
+        Best Case:      4.5165e-05 seconds
+        Worst Case:     0.157562 seconds
 
 Selection Sort
-        Average Case:   12.0801 seconds
-        Best Case:      0.000482336 seconds
-        Worst Case:     11.6385 seconds
+        Average Case:   0.0862188 seconds
+        Best Case:      2.2451e-05 seconds
+        Worst Case:     0.0894028 seconds
 
-Benchmarks ran asynchronously in 29.1936 seconds!
+Benchmarks ran asynchronously in 0.27299 seconds!
 ```

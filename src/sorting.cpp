@@ -1,5 +1,30 @@
 #include "sorting.hpp"
+#include "utils.hpp"
 #include <utility> // swap
+
+// https://en.wikipedia.org/wiki/Bubble_sort
+// Worst-case performance: O(n^2), O(n^2) swaps
+// Best-case performance:  O(n^2), O(n) with best-case check
+// Average performance:    O(n*log(n))
+// Worst-case complexity:  O(n) total O(1) auxillary
+void bubble_sort(int array[], const int array_length)
+{
+    int n = array_length;
+
+    while (n > 1)
+    {
+        int new_n = 0;
+
+        for (int i = 1; i < n; i++)
+            if (array[i - 1] > array[i])
+            {
+                std::swap(array[i - 1], array[i]);
+                new_n = i;
+            }
+
+        n = new_n;
+    }
+}
 
 // https://en.wikipedia.org/wiki/Heapsort
 // Worst-case performance: O(n*log(n))

@@ -1,6 +1,8 @@
 #ifndef SORTING_HPP
 #define SORTING_HPP
 
+void bubble_sort(int array[], const int array_length);
+
 void heap_sort(int array[], const int array_length);
 
 void heapify(int array[], const int heap_size, const int node_index);

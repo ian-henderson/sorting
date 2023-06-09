@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     TestArrays *test_arrays = create_test_arrays(array_length);
 
     SortTimes sort_times_array[] = {
+        run_sort_function_test_cases("Bubble Sort", bubble_sort, test_arrays, array_length),
         run_sort_function_test_cases("Heap Sort", heap_sort, test_arrays, array_length),
         run_sort_function_test_cases("Insertion Sort", insertion_sort, test_arrays, array_length),
         run_sort_function_test_cases("Merge Sort", merge_sort, test_arrays, array_length),
