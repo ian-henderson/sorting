@@ -1,5 +1,4 @@
 #include "sorting.hpp"
-#include "utils.hpp"
 #include <utility> // swap
 
 // https://en.wikipedia.org/wiki/Bubble_sort
