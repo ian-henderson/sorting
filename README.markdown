@@ -26,37 +26,37 @@
 ## sample output:
 
 ```
-Sorting Algorithm Benchmarks (array length: 10000)
+Sorting Algorithm Benchmarks (array length: 50000)
 
 Bubble Sort
-        Average Case:   0.273266 seconds
-        Best Case:      2.0377e-05 seconds
-        Worst Case:     0.232845 seconds
+        Average Case:   10.0354 seconds
+        Best Case:      0.000159829 seconds
+        Worst Case:     10.8071 seconds
 
 Heap Sort
-        Average Case:   0.00267411 seconds
-        Best Case:      3.093e-05 seconds
-        Worst Case:     0.00211626 seconds
+        Average Case:   0.0210165 seconds
+        Best Case:      0.000162154 seconds
+        Worst Case:     0.0170977 seconds
 
 Insertion Sort
-        Average Case:   0.0581824 seconds
-        Best Case:      5.0297e-05 seconds
-        Worst Case:     0.111723 seconds
+        Average Case:   1.39794 seconds
+        Best Case:      0.000277225 seconds
+        Worst Case:     2.79942 seconds
 
 Merge Sort
-        Average Case:   0.00510136 seconds
-        Best Case:      3.8686e-05 seconds
-        Worst Case:     0.00413113 seconds
+        Average Case:   0.0150752 seconds
+        Best Case:      0.000150299 seconds
+        Worst Case:     0.00987526 seconds
 
 Quick Sort
-        Average Case:   0.00155681 seconds
-        Best Case:      4.5165e-05 seconds
-        Worst Case:     0.157562 seconds
+        Average Case:   0.0124028 seconds
+        Best Case:      0.000162998 seconds
+        Worst Case:     7.02918 seconds
 
 Selection Sort
-        Average Case:   0.0862188 seconds
-        Best Case:      2.2451e-05 seconds
-        Worst Case:     0.0894028 seconds
+        Average Case:   2.51368 seconds
+        Best Case:      0.000131708 seconds
+        Worst Case:     2.41217 seconds
 
-Benchmarks ran asynchronously in 0.27299 seconds!
+Benchmarks ran asynchronously in 10.8084 seconds!
 ```

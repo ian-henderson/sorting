@@ -14,6 +14,9 @@ int main(int argc, char *argv[])
     // array. This is only useful for the average case "randomized" array.
     TestArrays *test_arrays = create_test_arrays(array_length);
 
+    Timer timer;
+    timer.start();
+
     SortTimes sort_times_array[] = {
         run_sort_function_test_cases("Bubble Sort", bubble_sort, test_arrays, array_length),
         run_sort_function_test_cases("Heap Sort", heap_sort, test_arrays, array_length),
@@ -21,9 +24,6 @@ int main(int argc, char *argv[])
         run_sort_function_test_cases("Merge Sort", merge_sort, test_arrays, array_length),
         run_sort_function_test_cases("Quick Sort", quick_sort, test_arrays, array_length),
         run_sort_function_test_cases("Selection Sort", selection_sort, test_arrays, array_length)};
-
-    Timer timer;
-    timer.start();
 
     try
     {
