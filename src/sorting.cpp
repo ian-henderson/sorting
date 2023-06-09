@@ -4,8 +4,8 @@
 
 // https://en.wikipedia.org/wiki/Bubble_sort
 // Worst-case performance: O(n^2), O(n^2) swaps
-// Best-case performance:  O(n^2), O(n) with best-case check
-// Average performance:    O(n*log(n))
+// Best-case performance:  O(n), O(1) swap
+// Average-case performance: O(n^2), O(n^2) swaps
 // Worst-case complexity:  O(n) total O(1) auxillary
 void bubble_sort(int array[], const int array_length)
 {
